@@ -54,6 +54,13 @@ const ProductShimmer = props => {
                             key="faq-title"
                         />
                     </div>
+                    <div className={classes.faqList}>
+                        <Shimmer
+                            width="100%"
+                            height={1}
+                            key="faq-desc"
+                        />
+                    </div>
                     <Shimmer width="100%" height={1} key="description-line-1" />
                     <Shimmer width="100%" height={1} key="description-line-2" />
                     <Shimmer width="100%" height={1} key="description-line-3" />
@@ -91,6 +98,7 @@ ProductShimmer.propTypes = {
         cartActions: string,
         faq: string,
         faqTitle: string,
+        faqList: string,
         description: string,
         descriptionTitle: string,
         details: string,

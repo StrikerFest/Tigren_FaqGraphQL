@@ -4,7 +4,7 @@
  * @license   Open Software License ("OSL") v. 3.0
  */
 
-const moduleOverridePlugin = require('./src/plugins/moduleOverrideWebpackPlugin');
+const moduleOverridePlugin = require('../plugins/moduleOverrideWebpackPlugin');
 const componentOverrideMapping = require('./componentOverrideMapping');
 
 module.exports = targets => {

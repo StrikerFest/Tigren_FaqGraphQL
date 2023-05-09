@@ -25,6 +25,9 @@ import { ProductOptionsShimmer } from '@magento/venia-ui/lib/components/ProductO
 import CustomAttributes from './CustomAttributes';
 import defaultClasses from './productFullDetail.module.css';
 
+import faqQuestionList from '../FaqQuestionList';
+import FaqQuestionList from '../FaqQuestionList';
+
 const WishlistButton = React.lazy(() => import('@magento/venia-ui/lib/components/Wishlist/AddToListButton'));
 const Options = React.lazy(() => import('@magento/venia-ui/lib/components/ProductOptions'));
 
@@ -308,6 +311,12 @@ const ProductFullDetail = props => {
                             defaultMessage={'FAQ'}
                         />
                     </span>
+                    <span
+                        data-cy="ProductFullDetail-faqList"
+                        className={classes.faqList}
+                    >
+                        <FaqQuestionList/>
+                    </span>
                     <RichContent html={productDetails.faq} />
                 </section>
                 <section className={classes.description}>
@@ -347,6 +356,7 @@ ProductFullDetail.propTypes = {
         cartActions: string,
         faq: string,
         faqTitle: string,
+        faqList: string,
         description: string,
         descriptionTitle: string,
         details: string,

@@ -1,0 +1,37 @@
+type Faq {
+    faq_id: Int
+    question: String
+    author: String
+    answer: String
+    status: String
+    product: Int
+    position: Int
+}
+
+type Query {
+    faqs: [Faq!]! @resolver(class: "Tigren\\FaqGraphQL\\Model\\Resolver\\FaqQuestionList")
+    faq(id: Int!): Faq!
+}
+
+type Mutation {
+    createFaq(
+        question: String!
+        author: String!
+        answer: String
+        status: String!
+        product: Int!
+        position: Int!
+    ): Faq!
+
+    updateFaq(
+        id: Int!
+        question: String
+        author: String
+        answer: String
+        status: String
+        product: Int
+        position: Int
+    ): Faq!
+
+    deleteFaq(id: Int!): Boolean!
+}
