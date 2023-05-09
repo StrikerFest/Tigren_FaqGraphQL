@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+  ~ @author    Tigren Solutions <info@tigren.com>
+  ~ @copyright  Copyright (c)  2023.  Tigren Solutions <https://www.tigren.com>. All rights reserved.
+  ~ @license   Open Software License ("OSL") v. 3.0
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Tigren_FaqGraphQL::faq"
+             title="Faq GraphQL"
+             module="Tigren_FaqGraphQL"
+             sortOrder="10"
+             resource="Tigren_FaqGraphQL::faq" />
+        <add
+            id="Tigren_FaqGraphQL::faq_manage"
+            title="Manage Customer FAQ"
+            module="Tigren_FaqGraphQL"
+            sortOrder="50"
+            parent="Tigren_FaqGraphQL::faq"
+            action="faqgraphql/faq"
+            resource="Tigren_FaqGraphQL::faq_manage" />
+        <add id="Tigren_FaqGraphQL::faq_configuration"
+             title="Configuration"
+             module="Tigren_FaqGraphQL"
+             sortOrder="50"
+             parent="Tigren_FaqGraphQL::faq"
+             action="adminhtml/system_config/edit/section/faqgraphql"
+             resource="Tigren_FaqGraphQL::faq_configuration" />
+    </menu>
+</config>
