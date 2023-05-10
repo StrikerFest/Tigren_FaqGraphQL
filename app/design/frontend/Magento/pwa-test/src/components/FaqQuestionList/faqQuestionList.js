@@ -43,19 +43,20 @@ const FaqQuestionList = () => {
 
     return (
         <div>
-            <ul >
+            <ul>
                 {data.faqs.map(list => (
                     <li key={list.faq_id}>
                         <hr />
                         Author name: {list.author}
                         <br /> Question: {list.question}
+                        <br /> Product: {list.product}
                         <br /> Answer: {list.answer}
                         <br /> Status: {list.status === 'Answered'
-                        ? <span style={{color: 'green'}}>{list.status}</span>
-                        : <span style={{color: 'blue'}}>{list.status}</span>}
+                        ? <span style={{ color: 'green' }}>{list.status}</span>
+                        : <span style={{ color: 'blue' }}>{list.status}</span>}
                         <br />
                         <br />
-                        </li>
+                    </li>
                 ))}
             </ul>
         </div>

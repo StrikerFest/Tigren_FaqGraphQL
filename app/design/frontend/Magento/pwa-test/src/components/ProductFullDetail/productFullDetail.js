@@ -24,9 +24,15 @@ import RichContent from '@magento/venia-ui/lib/components/RichContent/richConten
 import { ProductOptionsShimmer } from '@magento/venia-ui/lib/components/ProductOptions';
 import CustomAttributes from './CustomAttributes';
 import defaultClasses from './productFullDetail.module.css';
-
-import faqQuestionList from '../FaqQuestionList';
+import { ApolloClient, InMemoryCache } from '@apollo/client';
 import FaqQuestionList from '../FaqQuestionList';
+import FaqQuestionCreate from '../FaqQuestionCreate';
+import { ApolloProvider } from 'react-apollo';
+
+const client = new ApolloClient({
+    uri: 'https://pwa-test.local.pwadev:8525/graphql',
+    cache: new InMemoryCache()
+});
 
 const WishlistButton = React.lazy(() => import('@magento/venia-ui/lib/components/Wishlist/AddToListButton'));
 const Options = React.lazy(() => import('@magento/venia-ui/lib/components/ProductOptions'));
@@ -37,7 +43,7 @@ const Options = React.lazy(() => import('@magento/venia-ui/lib/components/Produc
 const ERROR_MESSAGE_TO_FIELD_MAPPING = {
     'The requested qty is not available': 'quantity',
     'Product that you are trying to add is not available.': 'quantity',
-    "The product that was requested doesn't exist.": 'quantity'
+    'The product that was requested doesn\'t exist.': 'quantity'
 };
 
 // Field level error messages for rendering.
@@ -164,8 +170,7 @@ const ProductFullDetail = props => {
         if (Array.isArray(customAttributes)) {
             customAttributes.forEach(customAttribute => {
                 if (
-                    customAttribute.attribute_metadata.ui_input
-                        .ui_input_type === 'PAGEBUILDER'
+                    customAttribute.attribute_metadata.ui_input.ui_input_type === 'PAGEBUILDER'
                 ) {
                     pagebuilder.push(customAttribute);
                 } else {
@@ -244,42 +249,43 @@ const ProductFullDetail = props => {
 
     return (
         <Fragment>
-            {breadcrumbs}
-            <Form
-                className={classes.root}
-                data-cy="ProductFullDetail-root"
-                onSubmit={handleAddToCart}
-            >
-                <section className={classes.imageCarousel}>
-                    <Carousel images={mediaGalleryEntries} />
-                </section>
-                <section className={classes.title}>
-                    <h1
-                        aria-live="polite"
-                        className={classes.productName}
-                        data-cy="ProductFullDetail-productName"
-                    >
-                        {productDetails.name}
-                    </h1>
-                    <p
-                        data-cy="ProductFullDetail-productPrice"
-                        className={classes.productPrice}
-                    >
-                        <Price
-                            currencyCode={productDetails.price.currency}
-                            value={productDetails.price.value}
-                        />
-                    </p>
-                    {shortDescription}
-                </section>
-                <FormError
-                    classes={{
-                        root: classes.formErrors
-                    }}
-                    errors={errors.get('form') || []}
-                />
-                <section className={classes.options}>{options}</section>
-                <section className={classes.quantity}>
+            <ApolloProvider client={client}>
+                {breadcrumbs}
+                <Form
+                    className={classes.root}
+                    data-cy="ProductFullDetail-root"
+                    onSubmit={handleAddToCart}
+                >
+                    <section className={classes.imageCarousel}>
+                        <Carousel images={mediaGalleryEntries} />
+                    </section>
+                    <section className={classes.title}>
+                        <h1
+                            aria-live="polite"
+                            className={classes.productName}
+                            data-cy="ProductFullDetail-productName"
+                        >
+                            {productDetails.name}
+                        </h1>
+                        <p
+                            data-cy="ProductFullDetail-productPrice"
+                            className={classes.productPrice}
+                        >
+                            <Price
+                                currencyCode={productDetails.price.currency}
+                                value={productDetails.price.value}
+                            />
+                        </p>
+                        {shortDescription}
+                    </section>
+                    <FormError
+                        classes={{
+                            root: classes.formErrors
+                        }}
+                        errors={errors.get('form') || []}
+                    />
+                    <section className={classes.options}>{options}</section>
+                    <section className={classes.quantity}>
                     <span
                         data-cy="ProductFullDetail-quantityTitle"
                         className={classes.quantityTitle}
@@ -289,19 +295,19 @@ const ProductFullDetail = props => {
                             defaultMessage={'Quantity'}
                         />
                     </span>
-                    <QuantityStepper
-                        classes={{ root: classes.quantityRoot }}
-                        min={1}
-                        message={errors.get('quantity')}
-                    />
-                </section>
-                <section className={classes.actions}>
-                    {cartActionContent}
-                    <Suspense fallback={null}>
-                        <WishlistButton {...wishlistButtonProps} />
-                    </Suspense>
-                </section>
-                <section className={classes.faq}>
+                        <QuantityStepper
+                            classes={{ root: classes.quantityRoot }}
+                            min={1}
+                            message={errors.get('quantity')}
+                        />
+                    </section>
+                    <section className={classes.actions}>
+                        {cartActionContent}
+                        <Suspense fallback={null}>
+                            <WishlistButton {...wishlistButtonProps} />
+                        </Suspense>
+                    </section>
+                    <section className={classes.faq}>
                     <span
                         data-cy="ProductFullDetail-faqTitle"
                         className={classes.faqTitle}
@@ -311,15 +317,15 @@ const ProductFullDetail = props => {
                             defaultMessage={'FAQ'}
                         />
                     </span>
-                    <span
-                        data-cy="ProductFullDetail-faqList"
-                        className={classes.faqList}
-                    >
-                        <FaqQuestionList/>
+                        <span
+                            data-cy="ProductFullDetail-faqList"
+                            className={classes.faqList}
+                        >
+                        <FaqQuestionList sku={productDetails.sku}/>
                     </span>
-                    <RichContent html={productDetails.faq} />
-                </section>
-                <section className={classes.description}>
+                        <RichContent html={productDetails.faq} />
+                    </section>
+                    <section className={classes.description}>
                     <span
                         data-cy="ProductFullDetail-descriptionTitle"
                         className={classes.descriptionTitle}
@@ -329,9 +335,9 @@ const ProductFullDetail = props => {
                             defaultMessage={'Description Bro'}
                         />
                     </span>
-                    <RichContent html={productDetails.description} />
-                </section>
-                <section className={classes.details}>
+                        <RichContent html={productDetails.description} />
+                    </section>
+                    <section className={classes.details}>
                     <span
                         data-cy="ProductFullDetail-detailsTitle"
                         className={classes.detailsTitle}
@@ -341,12 +347,14 @@ const ProductFullDetail = props => {
                             defaultMessage={'Details'}
                         />
                     </span>
-                    <CustomAttributes
-                        customAttributes={customAttributesDetails.list}
-                    />
-                </section>
-                {pageBuilderAttributes}
-            </Form>
+                        <CustomAttributes
+                            customAttributes={customAttributesDetails.list}
+                        />
+                    </section>
+                    {pageBuilderAttributes}
+                </Form>
+                <FaqQuestionCreate sku={productDetails.sku}/>
+            </ApolloProvider>
         </Fragment>
     );
 };

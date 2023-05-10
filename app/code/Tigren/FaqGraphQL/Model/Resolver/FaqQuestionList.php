@@ -15,6 +15,8 @@ use Tigren\FaqGraphQL\Model\FaqFactory;
 
 class FaqQuestionList implements ResolverInterface
 {
+    private FaqFactory $faqFactory;
+
     public function __construct(
         FaqFactory $faqFactory,
         Faq $faqModel
@@ -40,6 +42,7 @@ class FaqQuestionList implements ResolverInterface
         $faqFactory = $this->faqFactory->create();
 
         $collection = $faqFactory->getCollection();
+        $collection->getSelect()->order('position DESC');
 
         return $collection->getData();
     }

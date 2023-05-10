@@ -17,21 +17,7 @@ type Mutation {
     createFaq(
         question: String!
         author: String!
-        answer: String
-        status: String!
-        product: Int!
-        position: Int!
-    ): Faq!
+        product: String!
+    ): Faq! @resolver(class: "Tigren\\FaqGraphQL\\Model\\Resolver\\FaqQuestionCreate")
 
-    updateFaq(
-        id: Int!
-        question: String
-        author: String
-        answer: String
-        status: String
-        product: Int
-        position: Int
-    ): Faq!
-
-    deleteFaq(id: Int!): Boolean!
 }

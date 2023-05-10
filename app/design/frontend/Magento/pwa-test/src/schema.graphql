@@ -1,6 +1,7 @@
 type Query {
     faqs: [Faq!]!
     faq(id: Int!): Faq!
+    faqsByProduct(product: Int!): [Faq!]!
 }
 
 type Faq {
@@ -13,26 +14,10 @@ type Faq {
     position: Int
 }
 
-
 type Mutation {
     createFaq(
         question: String!
         author: String!
-        answer: String!
-        status: String!
-        product: Int!
-        position: Int!
+        product: String!
     ): Faq!
-
-    updateFaq(
-        id: Int!
-        question: String
-        author: String
-        answer: String
-        status: String
-        product: Int
-        position: Int
-    ): Faq!
-
-    deleteFaq(id: Int!): Boolean!
 }
