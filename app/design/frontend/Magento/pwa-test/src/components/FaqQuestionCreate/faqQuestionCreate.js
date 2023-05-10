@@ -28,7 +28,6 @@ const FaqQuestionCreate = (props) => {
         product: props.sku
     });
     const [submitQuestion] = useMutation(CREATE_FAQ_QUESTIONS);
-    // TODO: TEST PASSING SKU TO RESOLVER
     const handleSubmit = (event) => {
         event.preventDefault();
         submitQuestion({

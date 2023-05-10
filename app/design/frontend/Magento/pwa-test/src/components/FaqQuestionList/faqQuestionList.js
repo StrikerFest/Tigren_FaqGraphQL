@@ -31,9 +31,6 @@ const FaqQuestionList = (props) => {
         fetchPolicy: 'network-only'
     });
 
-    const handlePageChange = (pageNumber) => {
-        refetch({ currentPage: pageNumber });
-    };
     React.useEffect(() => {
         refetch();
     }, [refetch]);
