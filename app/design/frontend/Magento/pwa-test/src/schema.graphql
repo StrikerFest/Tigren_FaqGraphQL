@@ -1,7 +1,7 @@
 type Query {
     faqs: [Faq!]!
     faq(id: Int!): Faq!
-    faqsByProduct(product: Int!): [Faq!]!
+    faqsByProduct(product: String!): [Faq!]!
 }
 
 type Faq {

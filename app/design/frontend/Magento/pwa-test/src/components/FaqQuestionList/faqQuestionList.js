@@ -9,8 +9,8 @@ const client = new ApolloClient({
 });
 
 const GET_FAQ_QUESTIONS = gql`
-    query {
-        faqs {
+    query($productSku: String!) {
+        faqsByProduct(product: $productSku) {
             faq_id
             question
             author
@@ -22,8 +22,12 @@ const GET_FAQ_QUESTIONS = gql`
     }
 `;
 
-const FaqQuestionList = () => {
+const FaqQuestionList = (props) => {
+    const productSku = props.sku;
     const { loading, error, data, refetch } = useQuery(GET_FAQ_QUESTIONS, {
+        variables: {
+            productSku: productSku
+        },
         fetchPolicy: 'network-only'
     });
 
@@ -37,19 +41,15 @@ const FaqQuestionList = () => {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error =( {error.message}</p>;
 
-    const handleQuestionClick = (question) => {
-        window.location.href = `https://pwa-test.local.pwadev:8525/tigren_question/edit/${question.question_id}`;
-    };
-
+    console.log(props);
     return (
         <div>
             <ul>
-                {data.faqs.map(list => (
+                {data.faqsByProduct.map(list => (
                     <li key={list.faq_id}>
                         <hr />
                         Author name: {list.author}
                         <br /> Question: {list.question}
-                        <br /> Product: {list.product}
                         <br /> Answer: {list.answer}
                         <br /> Status: {list.status === 'Answered'
                         ? <span style={{ color: 'green' }}>{list.status}</span>

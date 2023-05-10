@@ -11,6 +11,7 @@ type Faq {
 type Query {
     faqs: [Faq!]! @resolver(class: "Tigren\\FaqGraphQL\\Model\\Resolver\\FaqQuestionList")
     faq(id: Int!): Faq!
+    faqsByProduct(product: String!): [Faq!]! @resolver(class: "Tigren\\FaqGraphQL\\Model\\Resolver\\FaqQuestionDetailList")
 }
 
 type Mutation {
