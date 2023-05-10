@@ -59,6 +59,9 @@ const FaqQuestionList = (props) => {
                     </li>
                 ))}
             </ul>
+            <span>
+            {props.createButton}
+            </span>
         </div>
     );
 };

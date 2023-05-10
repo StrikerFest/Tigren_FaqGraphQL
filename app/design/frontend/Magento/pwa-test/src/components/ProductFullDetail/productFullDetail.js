@@ -4,7 +4,7 @@
  * @license   Open Software License ("OSL") v. 3.0
  */
 
-import React, { useMemo, Fragment, Suspense } from 'react';
+import React, { useMemo, Fragment, Suspense, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { arrayOf, bool, number, shape, string } from 'prop-types';
 import { Form } from 'informed';
@@ -73,6 +73,12 @@ const ProductFullDetail = props => {
     } = talonProps;
 
     const { formatMessage } = useIntl();
+
+    const [isFaqCreateVisible, setIsFaqCreateVisible] = useState(false);
+
+    const handleFaqCreateButtonClick = () => {
+        isFaqCreateVisible ? setIsFaqCreateVisible(false) : setIsFaqCreateVisible(true);
+    };
 
     const classes = useStyle(defaultClasses, props.classes);
 
@@ -247,6 +253,10 @@ const ProductFullDetail = props => {
         </section>
     ) : null;
 
+    const createButton = (
+        <button style={{border: "black 1px solid", borderRadius: "10px", padding: "5px"}} onClick={handleFaqCreateButtonClick}>Ask a question</button>
+    );
+
     return (
         <Fragment>
             <ApolloProvider client={client}>
@@ -321,7 +331,8 @@ const ProductFullDetail = props => {
                             data-cy="ProductFullDetail-faqList"
                             className={classes.faqList}
                         >
-                        <FaqQuestionList sku={productDetails.sku}/>
+                        <FaqQuestionList sku={productDetails.sku} createButton={createButton}/>
+
                     </span>
                         <RichContent html={productDetails.faq} />
                     </section>
@@ -353,7 +364,7 @@ const ProductFullDetail = props => {
                     </section>
                     {pageBuilderAttributes}
                 </Form>
-                <FaqQuestionCreate sku={productDetails.sku}/>
+                {isFaqCreateVisible && <FaqQuestionCreate sku={productDetails.sku}/>}
             </ApolloProvider>
         </Fragment>
     );

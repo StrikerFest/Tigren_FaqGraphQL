@@ -62,11 +62,6 @@ const FaqQuestionCreate = (props) => {
     return (
         <form onSubmit={handleSubmit}>
             <table style={{ width: '100%' }}>
-                <thead>
-                <tr>
-                    <td colSpan={2}>EDIT</td>
-                </tr>
-                </thead>
                 <tbody>
                 <tr>
                     <td style={{ border: 'black solid 1px', padding: '5px' }}>Author:</td>
@@ -83,7 +78,8 @@ const FaqQuestionCreate = (props) => {
                 </tr>
                 <tr>
                     <td colSpan={2}>
-                        <button type="submit" className="btn btn-submit">Save</button>
+                        <br/>
+                        <button style={{border: "black 1px solid", borderRadius: "10px", padding: "5px",width: "100%"}}  type="submit" className="btn btn-submit">Save</button>
                     </td>
                 </tr>
                 </tbody>
