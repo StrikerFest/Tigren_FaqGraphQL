@@ -21,7 +21,10 @@ const CREATE_FAQ_QUESTIONS = gql`
     }
 `;
 
+
+
 const FaqQuestionCreate = (props) => {
+
     const [formValues, setFormValues] = useState({
         author: '',
         question: '',
@@ -57,6 +60,9 @@ const FaqQuestionCreate = (props) => {
             [name]: value
         }));
     };
+
+    useEffect(()=>{
+    },[])
 
     return (
         <form onSubmit={handleSubmit}>

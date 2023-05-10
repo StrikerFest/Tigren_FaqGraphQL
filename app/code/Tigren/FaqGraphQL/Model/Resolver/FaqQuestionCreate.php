@@ -67,6 +67,12 @@ class FaqQuestionCreate implements ResolverInterface
             $data['position'] = '0';
 
             $model->setData($data);
+            if($data['question'] == false || $data['author'] == ''){
+                return [
+                    "success" => false,
+                    "message" => 'Empty question or author name',
+                ];
+            }
             try {
                 $this->resource->save($model);
                 return [

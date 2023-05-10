@@ -254,7 +254,7 @@ const ProductFullDetail = props => {
     ) : null;
 
     const createButton = (
-        <button style={{border: "black 1px solid", borderRadius: "10px", padding: "5px"}} onClick={handleFaqCreateButtonClick}>Ask a question</button>
+        <button type={"button"} style={{border: "black 1px solid", borderRadius: "10px", padding: "5px"}} onClick={handleFaqCreateButtonClick}>Ask a question</button>
     );
 
     return (
